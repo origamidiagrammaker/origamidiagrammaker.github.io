@@ -5,30 +5,310 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Origami Diagram Maker</title>
 <meta name="description" content="A desktop program for making step-by-step origami diagrams from crease patterns.">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/icon_32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/icon_256.png">
+<!-- Link previews (Facebook, Discord, forums). TODO: a 1200x630 assets/social.png; the URLs must be absolute. -->
+<meta property="og:title" content="Origami Diagram Maker">
+<meta property="og:description" content="Step-by-step origami diagrams from crease patterns.">
+<meta property="og:url" content="https://origamidiagrammaker.github.io/">
+<meta property="og:image" content="https://origamidiagrammaker.github.io/assets/logo_512.png">
+<meta name="twitter:card" content="summary">
 <style>
-  :root { --bg: #fbfaf7; --fg: #1f2328; --muted: #5b616b; --accent: #b4442f; --line: #e3e0d8; }
+  :root { --bg: #fbfaf7; --fg: #1f2328; --muted: #5b616b; --accent: #b4442f; --line: #e3e0d8;
+          --panel: #f2f0ea; --on-accent: #ffffff; }
   @media (prefers-color-scheme: dark) {
-    :root { --bg: #16181c; --fg: #e8e6e1; --muted: #a3a8b0; --accent: #e07a62; --line: #2c3036; }
+    :root { --bg: #16181c; --fg: #e8e6e1; --muted: #a3a8b0; --accent: #e07a62; --line: #2c3036;
+            --panel: #1e2126; --on-accent: #16181c; }
   }
   * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
   body { margin: 0; background: var(--bg); color: var(--fg);
          font: 17px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
-  main { max-width: 640px; margin: 0 auto; padding: 72px 16px; }
-  h1 { font-size: 2rem; line-height: 1.2; margin: 0 0 12px; }
-  .lead { font-size: 1.15rem; color: var(--muted); margin: 0 0 40px; }
-  .status { border-left: 3px solid var(--accent); padding: 4px 0 4px 16px; margin: 0 0 40px; }
+  main { max-width: 880px; margin: 0 auto; padding: 0 16px; }
+  section { padding: 56px 0; border-top: 1px solid var(--line); }
+  h1 { font-size: 2.4rem; line-height: 1.15; margin: 0 0 12px; }
+  h2 { font-size: 1.5rem; line-height: 1.25; margin: 0 0 16px; }
+  h3 { font-size: 1.1rem; margin: 0 0 6px; }
+  p { margin: 0 0 14px; }
   a { color: var(--accent); }
-  footer { border-top: 1px solid var(--line); padding-top: 16px; color: var(--muted); font-size: .9rem; }
+  .muted { color: var(--muted); }
+  .small { font-size: .9rem; }
+  /* no lone words on a last line; short texts in lines of even length (ignored where unsupported) */
+  p, li { text-wrap: pretty; }
+  h1, h2, h3, .lead, figcaption { text-wrap: balance; }
+  .points { margin: 0 0 14px; padding-left: 1.2em; }
+  .points li { margin-bottom: 6px; }
+
+  /* hero */
+  .hero { display: grid; grid-template-columns: 220px 1fr; gap: 40px; align-items: center;
+          padding: 72px 0 56px; }
+  .hero img { width: 100%; height: auto; }
+  .lead { font-size: 1.2rem; color: var(--muted); margin: 0 0 28px; }
+  .button { display: inline-block; background: var(--accent); color: var(--on-accent);
+            padding: 12px 22px; border-radius: 6px; text-decoration: none; font-weight: 600; }
+  .button[aria-disabled="true"] { opacity: .55; pointer-events: none; }
+  .download-meta { margin-top: 10px; }
+  @media (max-width: 640px) {
+    .hero { grid-template-columns: 1fr; gap: 24px; padding-top: 40px; text-align: center; }
+    .hero img { max-width: 160px; margin: 0 auto; display: block; }
+  }
+
+  /* features: a clip with text beside it, alternating sides */
+  .feature { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center;
+             margin: 0 0 48px; }
+  .feature:last-child { margin-bottom: 0; }
+  .feature:nth-child(odd) .media { order: 2; }
+  @media (max-width: 640px) {
+    .feature { grid-template-columns: 1fr; gap: 16px; }
+    .feature:nth-child(odd) .media { order: 0; }
+  }
+  .media video, .media img, .gallery img { width: 100%; height: auto; display: block; border-radius: 8px;
+                                           border: 1px solid var(--line); background: #fff; }
+  .slot { aspect-ratio: 4 / 3; border: 2px dashed var(--line); border-radius: 8px;
+          display: grid; place-items: center; color: var(--muted); font-size: .9rem;
+          text-align: center; padding: 12px; background: var(--panel); }
+
+  .gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; align-items: start; }
+  @media (max-width: 560px) { .gallery { grid-template-columns: 1fr; } }
+  .gallery figure { margin: 0; }
+  .gallery figcaption { font-size: .9rem; color: var(--muted); margin-top: 6px; }
+  .zoom { display: block; cursor: zoom-in; }
+  .zoom:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 8px; }
+
+  /* the larger view of a gallery image */
+  .lightbox { border: 0; padding: 0; background: transparent; max-width: 100vw; max-height: 100vh;
+              width: 100vw; height: 100vh; cursor: zoom-out; }
+  .lightbox::backdrop { background: rgba(0, 0, 0, .8); }
+  .lightbox[open] { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; }
+  .lightbox img { max-width: calc(100vw - 32px); max-height: calc(100vh - 80px); width: auto; height: auto;
+                  background: #fff; border-radius: 8px; }
+  .lightbox p { color: #e8e6e1; margin: 0; font-size: .95rem; text-align: center; padding: 0 16px; }
+
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  @media (max-width: 640px) { .cols { grid-template-columns: 1fr; } }
+  ul { padding-left: 1.2em; margin: 0 0 14px; }
+  li { margin-bottom: 4px; }
+  ol.steps li { margin-bottom: 8px; }
+  code { background: var(--panel); padding: 1px 5px; border-radius: 4px; font-size: .9em; }
+  .box { border-left: 3px solid var(--accent); padding: 4px 0 4px 16px; }
+
+  footer { border-top: 1px solid var(--line); padding: 24px 0 48px; color: var(--muted); font-size: .9rem; }
+  footer a { color: inherit; }
 </style>
 </head>
 <body>
 <main>
-  <h1>Origami Diagram Maker</h1>
-  <p class="lead">A desktop program for making step-by-step origami diagrams from crease patterns.</p>
-  <p class="status">The first public release is coming soon. Downloads will appear here.</p>
-  <footer>
-    Contact: <a href="mailto:origamidiagrammaker@gmail.com">origamidiagrammaker@gmail.com</a>
-  </footer>
+
+  <!-- ===== Hero ===== -->
+  <header class="hero">
+    <picture>
+      <source srcset="assets/logo_dark.svg" media="(prefers-color-scheme: dark)">
+      <img src="assets/logo.svg" alt="Logo: a preliminary base with the arrow of a petal fold">
+    </picture>
+    <div>
+      <h1>Origami Diagram Maker</h1>
+      <p class="lead">Step-by-step origami diagrams from crease patterns, drawn from the real
+        folded geometry.</p>
+      <!-- When released: href to the Releases page or the installer, and drop aria-disabled -->
+      <a class="button" href="#download" aria-disabled="true">Download: coming soon</a>
+      <p class="download-meta small muted">Windows 10 and 11 (64-bit). macOS (Apple silicon) to follow.
+        Free for individuals: see the <a href="#licence">licence</a>.</p>
+    </div>
+  </header>
+
+  <!-- ===== What it is ===== -->
+  <section id="about">
+    <h2>What it does</h2>
+    <p>Origami Diagram Maker (ODM) turns crease patterns into step-by-step diagrams. Load a
+      crease pattern for each step of a folding sequence, and ODM folds it for you: it works
+      out the layers, draws the paper as it really lies, adds the fold arrows and
+      precreases, and lays the steps out on pages ready to print or share as PDF.</p>
+    <p>Made for designers and folders who want clear diagrams without spending hours drawing
+      them by hand.</p>
+    <ul class="points">
+      <li>Sharp vector output at any size, ready to print, with no manual drawing.</li>
+      <li>Every layer has its true place in the stack: flaps tuck, overlap and nest exactly as
+        in the folded model.</li>
+      <li>Import crease patterns from ORIPA, Oriedita or other tools that save .cp files. A
+        built-in editor is on the way.</li>
+    </ul>
+  </section>
+
+  <!-- ===== Features with clips =====
+       Each .slot is replaced by:
+       <video src="assets/clip_x.mp4" poster="assets/clip_x.png" autoplay muted loop playsinline
+              aria-label="..."></video>
+       (visitors who prefer reduced motion get the still image; see the script at the end) -->
+  <section id="features">
+    <h2>Features</h2>
+
+    <div class="feature">
+      <div class="media"><video src="assets/clip_view.mp4" poster="assets/clip_view.png" autoplay muted loop playsinline
+        aria-label="A folded crane whose layers shift as the depth distortion direction slider turns"></video></div>
+      <div>
+        <h3>Drawn from the folded geometry</h3>
+        <p>Every step is drawn from the physically folded model, so layers, edges and hidden
+          flaps come out right. View it from any angle, and spread the layers to show what is
+          inside.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="media"><video src="assets/clip_layers.mp4" poster="assets/clip_layers.png" autoplay muted loop playsinline
+        aria-label="The layer order window: clicking two pairs of faces changes which layers of the model lie on top"></video></div>
+      <div>
+        <h3>Layer management</h3>
+        <p>ODM works out which layer lies on top of which. Where the folds leave a
+          choice, you pick visually where each layer goes.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="media"><div class="slot">Clip: adding a step, automatic precreases appearing</div></div>
+      <div>
+        <h3>Automatic precreases and arrows</h3>
+        <p>Valley and mountain lines, fold arrows and push arrows are worked out from the
+          difference between two steps.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="media"><div class="slot">Clip: exporting a sequence to PDF and scrolling the pages</div></div>
+      <div>
+        <h3>Ready-to-print PDF</h3>
+        <p>Lay out the whole sequence on pages with step numbers and captions, and export it as
+          a vector PDF, or single steps as SVG or PNG.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Gallery ===== -->
+  <section id="gallery">
+    <h2>Gallery</h2>
+    <p class="muted">Renders of more complex models made with ODM.</p>
+    <div class="gallery">
+      <figure><a href="assets/gallery_tsurufamily.svg" class="zoom"><img src="assets/gallery_tsurufamily.svg" alt="The Tsuru Family origami model, drawn by ODM" loading="lazy"></a><figcaption>Tsuru Family by Thomas Krak</figcaption></figure>
+      <figure><a href="assets/gallery_redkite.svg" class="zoom"><img src="assets/gallery_redkite.svg" alt="The Red Kite origami model, drawn by ODM" loading="lazy"></a><figcaption>Red Kite by Menno Van de Meerakker</figcaption></figure>
+      <figure><a href="assets/gallery_bull.svg" class="zoom"><img src="assets/gallery_bull.svg" alt="The Bull origami model, drawn by ODM" loading="lazy"></a><figcaption>Bull by Jason Ku</figcaption></figure>
+      <figure><a href="assets/gallery_dragon.svg" class="zoom"><img src="assets/gallery_dragon.svg" alt="The Dragon origami model, drawn by ODM" loading="lazy"></a><figcaption>Dragon by Jason Ku</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- ===== Download and install ===== -->
+  <section id="download">
+    <h2>Download and install</h2>
+    <p>The first public release is coming soon. Downloads will be on the
+      <a href="https://github.com/origamidiagrammaker/origamidiagrammaker.github.io/releases">releases page</a>,
+      with release notes for every version.</p>
+    <div class="cols">
+      <div>
+        <h3>Windows</h3>
+        <p class="small">Windows SmartScreen asks for confirmation before running installers
+          it doesn't recognise yet, as is usual for independent software. To install:</p>
+        <ol class="steps small">
+          <li>Run the installer. Windows shows <em>"Windows protected your PC"</em>.</li>
+          <li>Click <strong>More info</strong>, then <strong>Run anyway</strong>.</li>
+        </ol>
+        <p class="small">Download ODM only from the releases page linked above.</p>
+        <p class="small muted">TODO: screenshots.</p>
+      </div>
+      <div>
+        <h3>macOS</h3>
+        <p class="small">Coming later. TODO: the Gatekeeper steps.</p>
+      </div>
+    </div>
+    <p class="small">ODM checks GitHub for updates and asks before installing one. It
+      sends no other data: no usage statistics, no tracking.</p>
+  </section>
+
+  <!-- ===== Licence ===== -->
+  <section id="licence">
+    <h2>Licence</h2>
+    <p>Origami Diagram Maker is free to use, but not open source. In short:</p>
+    <ul>
+      <li>Free for individuals, including selling diagrams you make with it, as long as your
+        income from them is at most EUR 1,000 per calendar year.</li>
+      <li>Free for non-profit origami societies and non-profit schools and universities.</li>
+      <li>You own the diagrams and project files you make, also after your licence ends.</li>
+      <li>You may share the unmodified installer, free of charge.</li>
+    </ul>
+    <p>The full terms come with ODM and will be published here with the first
+      release. They are what count; this summary is only for convenience.</p>
+    <div class="box" id="commercial">
+      <h3>Commercial use</h3>
+      <p>A separate licence is needed above that income, for diagramming on commission, and
+        for companies, publishers and other organisations (after a 30-day evaluation). Just
+        <a href="mailto:origamidiagrammaker@gmail.com?subject=Commercial%20licence">get in touch</a>.</p>
+    </div>
+  </section>
+
+  <!-- ===== Support, credit ===== -->
+  <section id="support">
+    <div class="cols">
+      <div>
+        <h2>Support the project</h2>
+        <p>If ODM is useful to you, a donation helps keep it going. It's never required.</p>
+        <!-- TODO: Ko-fi link -->
+        <p><a class="button" href="#support" aria-disabled="true">Ko-fi: coming soon</a></p>
+      </div>
+      <div>
+        <h2>Credit</h2>
+        <p>Not required, but appreciated: a line in your diagrams such as</p>
+        <p><code>Diagrams made with Origami Diagram Maker</code></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Feedback and acknowledgements ===== -->
+  <section id="contact">
+    <div class="cols">
+      <div>
+        <h2>Feedback and bugs</h2>
+        <p>Found a bug or have a request? Open an
+          <a href="https://github.com/origamidiagrammaker/origamidiagrammaker.github.io/issues">issue on GitHub</a>
+          or email <a href="mailto:origamidiagrammaker@gmail.com">origamidiagrammaker@gmail.com</a>.
+          Attaching the project file helps a lot.</p>
+      </div>
+      <div>
+        <h2>Acknowledgements</h2>
+        <p>The layer-order solver is based on
+          <a href="https://github.com/origamimagiro/flat-folder">flat-folder</a> by Jason S. Ku
+          (MIT licence). ODM also uses Qt for Python (PySide6, LGPL), NumPy, Shapely,
+          Matplotlib and others; their licences come with ODM.
+          TODO: link to the third-party licence list.</p>
+      </div>
+    </div>
+  </section>
+
 </main>
+<footer>
+  <main>
+    &copy; 2026 Thomas Krak &middot;
+    <a href="mailto:origamidiagrammaker@gmail.com">origamidiagrammaker@gmail.com</a> &middot;
+    <a href="https://github.com/origamidiagrammaker/origamidiagrammaker.github.io">GitHub</a>
+  </main>
+</footer>
+<dialog class="lightbox" aria-label="Larger image"><img alt=""><p></p></dialog>
+<script>
+  // Gallery images open larger in a dialog; a click anywhere or Esc closes it. Without
+  // scripts the links still open the image itself.
+  const box = document.querySelector(".lightbox");
+  document.querySelectorAll("a.zoom").forEach(a => a.addEventListener("click", e => {
+    e.preventDefault();
+    const img = a.querySelector("img"), cap = a.closest("figure").querySelector("figcaption");
+    box.querySelector("img").src = a.href;
+    box.querySelector("img").alt = img.alt;
+    box.querySelector("p").textContent = cap ? cap.textContent : "";
+    box.showModal();
+  }));
+  box.addEventListener("click", () => box.close());
+
+  // Looping clips stay still for visitors who prefer reduced motion (they see the poster image)
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    document.querySelectorAll("video[autoplay]").forEach(v => { v.removeAttribute("autoplay"); v.pause(); v.controls = true; });
+  }
+</script>
 </body>
 </html>
