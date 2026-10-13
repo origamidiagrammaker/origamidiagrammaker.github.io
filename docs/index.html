@@ -8,12 +8,16 @@
 <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
 <link rel="icon" href="assets/icon_32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="assets/icon_256.png">
-<!-- Link previews (Facebook, Discord, forums). TODO: a 1200x630 assets/social.png; the URLs must be absolute. -->
+<!-- Link previews (Facebook, Discord, forums, messengers); the URLs must be absolute.
+     assets/social.png: devtools/brand/make_social.py in the dev repository. -->
 <meta property="og:title" content="Origami Diagram Maker">
 <meta property="og:description" content="Step-by-step origami diagrams from crease patterns.">
 <meta property="og:url" content="https://origamidiagrammaker.github.io/">
-<meta property="og:image" content="https://origamidiagrammaker.github.io/assets/logo_512.png">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="https://origamidiagrammaker.github.io/assets/social.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Origami Diagram Maker logo: a folded model with a fold arrow, next to the name">
+<meta name="twitter:card" content="summary_large_image">
 <style>
   :root { --bg: #fbfaf7; --fg: #1f2328; --muted: #5b616b; --accent: #b4442f; --line: #e3e0d8;
           --panel: #f2f0ea; --on-accent: #ffffff; }
@@ -213,7 +217,7 @@
       <figure><a href="assets/gallery_redkite.svg" class="zoom"><img src="assets/gallery_redkite.svg" alt="The Red Kite origami model, drawn by ODM" loading="lazy"></a><figcaption>Red Kite by Menno Van de Meerakker</figcaption></figure>
       <figure><a href="assets/gallery_bull.svg" class="zoom"><img src="assets/gallery_bull.svg" alt="The Bull origami model, drawn by ODM" loading="lazy"></a><figcaption>Bull by Jason Ku</figcaption></figure>
       <figure><a href="assets/gallery_dragon.svg" class="zoom"><img src="assets/gallery_dragon.svg" alt="The Dragon origami model, drawn by ODM" loading="lazy"></a><figcaption>Dragon by Jason Ku</figcaption></figure>
-      <figure><a href="assets/gallery_tsurufamily_page4.png?v=2" class="zoom"><img src="assets/gallery_tsurufamily_page4.png?v=2" alt="Page 4 of the Tsuru Family diagrams as exported to PDF: steps 41 to 62 along a ribbon" loading="lazy"></a><figcaption>Tsuru Family: page 4 of the exported PDF</figcaption></figure>
+      <figure><a href="assets/gallery_tsurufamily_page4.png?v=2" class="zoom"><img src="assets/gallery_tsurufamily_page4.png?v=2" alt="Page 4 of the Tsuru Family diagrams as exported to PDF: steps 41 to 62 along a ribbon" loading="lazy"></a><figcaption>Example export page of the Tsuru Family diagram</figcaption></figure>
     </div>
   </section>
 
@@ -241,7 +245,7 @@
       </div>
       <div>
         <h3>macOS</h3>
-        <p class="small">Coming later. TODO: the Gatekeeper steps.</p>
+        <p class="small">Coming later.</p>
       </div>
     </div>
     <p class="small">ODM checks GitHub for updates and asks before installing one. It
@@ -259,8 +263,8 @@
       <li>You own the diagrams and project files you make, also after your licence ends.</li>
       <li>You may share the unmodified installer, free of charge.</li>
     </ul>
-    <p>The full terms come with ODM and will be published here with the first
-      release. They are what count; this summary is only for convenience.</p>
+    <p>The <a href="licence.html">full terms</a> (licence version 1.0) also come with ODM. They are
+      what count; this summary is only for convenience.</p>
     <div class="box" id="commercial">
       <h3>Commercial use</h3>
       <p>A separate licence is needed above that income, for diagramming on commission, and
@@ -300,9 +304,9 @@
         <h2>Acknowledgements</h2>
         <p>The layer-order solver is based on
           <a href="https://github.com/origamimagiro/flat-folder">flat-folder</a> by Jason S. Ku
-          (MIT licence). ODM also uses Qt for Python (PySide6, LGPL), NumPy, Shapely,
-          Matplotlib and others; their licences come with ODM.
-          TODO: link to the third-party licence list.</p>
+          (MIT licence). ODM also uses Qt for Python (PySide6, LGPL), NumPy, SciPy, Shapely,
+          Matplotlib, Numba and others: see <a href="third-party.html">third-party software</a>
+          for the full list, their licences and the source code of the LGPL libraries.</p>
       </div>
     </div>
   </section>
@@ -312,7 +316,9 @@
   <main>
     &copy; 2026 Thomas Krak &middot;
     <a href="mailto:origamidiagrammaker@gmail.com">origamidiagrammaker@gmail.com</a> &middot;
-    <a href="https://github.com/origamidiagrammaker/origamidiagrammaker.github.io">GitHub</a>
+    <a href="https://github.com/origamidiagrammaker/origamidiagrammaker.github.io">GitHub</a> &middot;
+    <a href="licence.html">Licence</a> &middot;
+    <a href="third-party.html">Third-party software</a>
   </main>
 </footer>
 <dialog class="lightbox" aria-label="Larger image"><img alt=""><p></p></dialog>

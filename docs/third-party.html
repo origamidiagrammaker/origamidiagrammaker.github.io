@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Third-party software – Origami Diagram Maker</title>
+<meta name="description" content="The third-party components in Origami Diagram Maker and their licences.">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/icon_32.png" sizes="32x32" type="image/png">
+<link rel="stylesheet" href="assets/sub.css">
+</head>
+<body>
+<header><a href="./"><img src="assets/icon.svg" alt="" width="28" height="28"> Origami Diagram Maker</a></header>
+<main>
+<h1>Third-party software</h1>
+<p>Origami Diagram Maker includes software made by others, each part under its own licence
+(section 7 of <a href="licence.html#s7">the licence</a>). Every download comes with the full list
+and every licence text: <code>THIRD_PARTY_LICENSES.txt</code>, next to the program. This page
+summarises it.</p>
+
+<h2>Parts of the program from others</h2>
+<p>The layer-order solver and the geometry it rests on are ported from or closely follow
+<a href="https://github.com/origamimagiro/flat-folder">flat-folder</a> by Jason S. Ku (MIT licence).</p>
+
+<h2>Libraries</h2>
+<table>
+<thead><tr><th>Component</th><th>Licence</th></tr></thead>
+<tbody>
+<tr><td><a href="https://www.python.org">Python 3.12.15</a></td><td>PSF-2.0 (Python Software Foundation License Version 2)</td></tr>
+<tr><td><a href="https://github.com/cloudpipe/cloudpickle">cloudpickle 3.1.2</a></td><td>BSD-3-Clause</td></tr>
+<tr><td><a href="https://github.com/contourpy/contourpy">contourpy 1.3.3</a></td><td>BSD License</td></tr>
+<tr><td><a href="https://matplotlib.org/cycler/">cycler 0.12.1</a></td><td>BSD License</td></tr>
+<tr><td><a href="https://github.com/pallets/jinja/">Jinja2 3.1.6</a></td><td>BSD License</td></tr>
+<tr><td><a href="https://joblib.readthedocs.io">joblib 1.6.0</a></td><td>BSD-3-Clause</td></tr>
+<tr><td><a href="https://github.com/nucleic/kiwi">kiwisolver 1.5.1</a></td><td>BSD License</td></tr>
+<tr><td><a href="https://github.com/numba/llvmlite">llvmlite 0.43.0</a></td><td>BSD</td></tr>
+<tr><td><a href="https://github.com/pallets/markupsafe/">MarkupSafe 3.0.4</a></td><td>BSD-3-Clause</td></tr>
+<tr><td><a href="https://matplotlib.org">matplotlib 3.9.2</a></td><td>Python Software Foundation License</td></tr>
+<tr><td><a href="https://numba.pydata.org">numba 0.60.0</a></td><td>BSD</td></tr>
+<tr><td><a href="https://numpy.org">numpy 1.26.4</a></td><td>BSD License</td></tr>
+<tr><td><a href="https://osqp.org/">osqp 1.1.1</a></td><td>Apache-2.0</td></tr>
+<tr><td><a href="https://github.com/pypa/packaging">packaging 26.3</a></td><td>Apache-2.0 OR BSD-2-Clause</td></tr>
+<tr><td><a href="https://python-pillow.github.io">pillow 12.3.0</a></td><td>MIT-CMU</td></tr>
+<tr><td><a href="https://github.com/pyinstaller/pyinstaller">PyInstaller bootloader 6.10.0</a></td><td>GPL-2.0-or-later WITH Bootloader-exception</td></tr>
+<tr><td><a href="https://github.com/pyparsing/pyparsing/">pyparsing 3.3.3</a></td><td>MIT</td></tr>
+<tr><td><a href="https://pyside.org">PySide6 6.11.2 and Qt 6.11.2</a></td><td>LGPL-3.0-only (chosen from LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only)</td></tr>
+<tr><td><a href="https://github.com/dateutil/dateutil">python-dateutil 2.9.0.post0</a></td><td>Dual License (BSD License; Apache Software License)</td></tr>
+<tr><td><a href="https://scipy.org/">scipy 1.13.1</a></td><td>BSD License</td></tr>
+<tr><td><a href="https://github.com/pypa/setuptools">setuptools 84.0.0</a></td><td>MIT</td></tr>
+<tr><td><a href="https://github.com/shapely/shapely">shapely 2.1.2</a></td><td>BSD 3-Clause</td></tr>
+<tr><td><a href="https://pyside.org">shiboken6 6.11.2</a></td><td>LGPL-3.0-only (chosen from LGPL-3.0-only OR GPL-2.0-only OR GPL-3.0-only)</td></tr>
+<tr><td><a href="https://github.com/benjaminp/six">six 1.17.0</a></td><td>MIT</td></tr>
+<tr><td><a href="https://velopack.io">velopack 1.2.161</a></td><td>MIT</td></tr>
+<tr><td><a href="https://visualstudio.microsoft.com">Microsoft Visual C++ runtime and Universal C Runtime</a></td><td>Microsoft&#x27;s redistribution terms (Distributable Code)</td></tr>
+</tbody>
+</table>
+
+<h2 id="lgpl">Source code of the LGPL libraries</h2>
+<p>These libraries are licensed under the GNU Lesser General Public License (LGPL). They are included as separate files in the program's folder (_internal), and you may replace them with modified versions, as the LGPL and section 7 of this program's licence allow:</p>
+<ul><li>Qt 6.11.2 (LGPL-3.0-only), its source modules qtbase, qtimageformats, qtsvg: _internal\PySide6\Qt6*.dll and _internal\PySide6\plugins.</li><li>PySide6 6.11.2 (LGPL-3.0-only): the other files in _internal\PySide6 (its .pyd and .py files and pyside6.abi3.dll).</li><li>Shiboken6 6.11.2 (LGPL-3.0-only): _internal\shiboken6.</li><li>GEOS 3.13.1 (LGPL-2.1), as bundled with Shapely 2.1.2: _internal\Shapely.libs\geos-*.dll and geos_c-*.dll.</li><li>libquadmath from GCC 10.3.0 (LGPL-2.1-or-later), inside the OpenBLAS libraries of numpy 1.26.4 and scipy 1.13.1: _internal\numpy.libs\libopenblas*.dll and _internal\scipy.libs\libopenblas*.dll.</li></ul>
+<p>The exact source code of these versions is available at:</p>
+<p><a href="https://github.com/origamidiagrammaker/origamidiagrammaker.github.io/releases/tag/third-party-sources">https://github.com/origamidiagrammaker/origamidiagrammaker.github.io/releases/tag/third-party-sources</a></p>
+<p>You can also ask origamidiagrammaker@gmail.com for a copy of it; this offer is valid for at least three years after this version was last distributed.</p>
+
+</main>
+<footer>&copy; 2026 Thomas Krak &middot; <a href="mailto:origamidiagrammaker@gmail.com">origamidiagrammaker@gmail.com</a>
+&middot; <a href="./">Home</a></footer>
+</body>
+</html>
