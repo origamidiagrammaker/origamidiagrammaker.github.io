@@ -55,7 +55,6 @@
   .lead { font-size: 1.2rem; color: var(--muted); margin: 0 0 28px; }
   .button { display: inline-block; background: var(--accent); color: var(--on-accent);
             padding: 12px 22px; border-radius: 6px; text-decoration: none; font-weight: 600; }
-  .button[aria-disabled="true"] { opacity: .55; pointer-events: none; }
   .download-meta { margin-top: 10px; }
   @media (max-width: 640px) {
     .hero { grid-template-columns: 1fr; gap: 24px; padding-top: 40px; text-align: center; }
@@ -121,8 +120,8 @@
       <h1>Origami Diagram Maker</h1>
       <p class="lead">Step-by-step origami diagrams from crease patterns, drawn from the real
         folded geometry.</p>
-      <!-- When released: href to the Releases page or the installer, and drop aria-disabled -->
-      <a class="button" href="#download" aria-disabled="true">Download: coming soon</a>
+      <!-- (always the latest release's installer; RELEASING.md, "A release", step 7) -->
+      <a class="button" href="https://github.com/origamidiagrammaker/origamidiagrammaker.github.io/releases/latest/download/OrigamiDiagramMaker-win-Setup.exe">Download for Windows</a>
       <p class="download-meta small muted">Windows 10 and 11 (64-bit). macOS (Apple silicon) to follow.
         Free for individuals: see the <a href="#licence">licence</a>.</p>
     </div>
@@ -224,9 +223,13 @@
   <!-- ===== Download and install ===== -->
   <section id="download">
     <h2>Download and install</h2>
-    <p>The first public release is coming soon. Downloads will be on the
-      <a href="https://github.com/origamidiagrammaker/origamidiagrammaker.github.io/releases">releases page</a>,
-      with release notes for every version.</p>
+    <p>Download the <a href="https://github.com/origamidiagrammaker/origamidiagrammaker.github.io/releases/latest/download/OrigamiDiagramMaker-win-Setup.exe">installer
+      for Windows</a>. It installs ODM for your own account, without administrator rights, and
+      keeps it up to date: it asks before installing an update. Can't install programs, for
+      example on a school computer? The
+      <a href="https://github.com/origamidiagrammaker/origamidiagrammaker.github.io/releases/latest/download/OrigamiDiagramMaker-win-Portable.zip">portable version</a>
+      runs from any folder: unzip it and start the program in it.</p>
+    <p>Every version, with its release notes, is on the <a href="https://github.com/origamidiagrammaker/origamidiagrammaker.github.io/releases">releases page</a>.</p>
     <div class="cols">
       <div>
         <h3>Windows</h3>
