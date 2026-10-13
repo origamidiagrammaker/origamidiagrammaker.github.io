@@ -40,6 +40,9 @@
   h1, h2, h3, .lead, figcaption { text-wrap: balance; }
   .points { margin: 0 0 14px; padding-left: 1.2em; }
   .points li { margin-bottom: 6px; }
+  /* screenshots in the install steps */
+  .shot { display: block; width: 100%; max-width: 340px; height: auto; margin: 8px 0 14px; border-radius: 6px;
+          border: 1px solid var(--line); }
 
   /* hero */
   .hero { display: grid; grid-template-columns: 220px 1fr; gap: 40px; align-items: center;
@@ -226,11 +229,15 @@
         <p class="small">Windows SmartScreen asks for confirmation before running installers
           it doesn't recognise yet, as is usual for independent software. To install:</p>
         <ol class="steps small">
-          <li>Run the installer. Windows shows <em>"Windows protected your PC"</em>.</li>
-          <li>Click <strong>More info</strong>, then <strong>Run anyway</strong>.</li>
+          <li>Run the installer. Windows shows <em>"Windows protected your PC"</em>. Click
+            <strong>More info</strong>.
+            <img class="shot" src="assets/smartscreen_1_more_info.png" width="663" height="618" loading="lazy"
+              alt="The SmartScreen warning &quot;Windows protected your PC&quot;, with the More info link marked"></li>
+          <li>Click <strong>Run anyway</strong>.
+            <img class="shot" src="assets/smartscreen_2_run_anyway.png" width="660" height="617" loading="lazy"
+              alt="The same warning after More info, showing the installer's name, with the Run anyway button marked"></li>
         </ol>
         <p class="small">Download ODM only from the releases page linked above.</p>
-        <p class="small muted">TODO: screenshots.</p>
       </div>
       <div>
         <h3>macOS</h3>
