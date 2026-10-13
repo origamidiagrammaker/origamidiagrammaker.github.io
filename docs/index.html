@@ -140,13 +140,14 @@
        Each .slot is replaced by:
        <video src="assets/clip_x.mp4" poster="assets/clip_x.png" autoplay muted loop playsinline
               aria-label="..."></video>
-       (visitors who prefer reduced motion get the still image; see the script at the end) -->
+       (visitors who prefer reduced motion get the still image; see the script at the end).
+       After replacing a clip, raise its ?v= number: browsers cache videos hard. -->
   <section id="features">
     <h2>Features</h2>
 
     <div class="feature">
-      <div class="media"><video src="assets/clip_view.mp4" poster="assets/clip_view.png" autoplay muted loop playsinline
-        aria-label="A folded crane whose layers shift as the depth distortion direction slider turns"></video></div>
+      <div class="media"><video src="assets/clip_view.mp4?v=2" poster="assets/clip_view.png?v=2" autoplay muted loop playsinline
+        aria-label="A folded crane whose layers shift as it is seen from changing directions"></video></div>
       <div>
         <h3>Drawn from the folded geometry</h3>
         <p>Every step is drawn from the physically folded model, so layers, edges and hidden
