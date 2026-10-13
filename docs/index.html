@@ -71,7 +71,10 @@
           text-align: center; padding: 12px; background: var(--panel); }
 
   .gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; align-items: start; }
-  @media (max-width: 560px) { .gallery { grid-template-columns: 1fr; } }
+  /* an odd one out on the last row: centred, at the width of a column */
+  .gallery figure:last-child:nth-child(odd) { grid-column: 1 / -1; justify-self: center; width: calc(50% - 12px); }
+  @media (max-width: 560px) { .gallery { grid-template-columns: 1fr; }
+    .gallery figure:last-child:nth-child(odd) { width: auto; justify-self: stretch; } }
   .gallery figure { margin: 0; }
   .gallery figcaption { font-size: .9rem; color: var(--muted); margin-top: 6px; }
   .zoom { display: block; cursor: zoom-in; }
@@ -188,7 +191,8 @@
     </div>
 
     <div class="feature">
-      <div class="media"><div class="slot">Clip: exporting a sequence to PDF and scrolling the pages</div></div>
+      <div class="media"><video src="assets/clip_export.mp4" poster="assets/clip_export.png" autoplay muted loop playsinline
+        aria-label="The Tsuru Family sequence opened for PDF export: a preview of its six pages, laid out on a ribbon, paged through"></video></div>
       <div>
         <h3>Ready-to-print PDF</h3>
         <p>Lay out the whole sequence on pages with step numbers and captions, and export it as
@@ -206,6 +210,7 @@
       <figure><a href="assets/gallery_redkite.svg" class="zoom"><img src="assets/gallery_redkite.svg" alt="The Red Kite origami model, drawn by ODM" loading="lazy"></a><figcaption>Red Kite by Menno Van de Meerakker</figcaption></figure>
       <figure><a href="assets/gallery_bull.svg" class="zoom"><img src="assets/gallery_bull.svg" alt="The Bull origami model, drawn by ODM" loading="lazy"></a><figcaption>Bull by Jason Ku</figcaption></figure>
       <figure><a href="assets/gallery_dragon.svg" class="zoom"><img src="assets/gallery_dragon.svg" alt="The Dragon origami model, drawn by ODM" loading="lazy"></a><figcaption>Dragon by Jason Ku</figcaption></figure>
+      <figure><a href="assets/gallery_tsurufamily_page4.png" class="zoom"><img src="assets/gallery_tsurufamily_page4.png" alt="Page 4 of the Tsuru Family diagrams as exported to PDF: steps 41 to 62 along a ribbon" loading="lazy"></a><figcaption>Tsuru Family: page 4 of the exported PDF</figcaption></figure>
     </div>
   </section>
 
