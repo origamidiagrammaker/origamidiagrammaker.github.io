@@ -316,9 +316,27 @@
   }));
   box.addEventListener("click", () => box.close());
 
-  // Looping clips stay still for visitors who prefer reduced motion (they see the poster image)
+  // Looping clips stay still for visitors who prefer reduced motion (they see the poster image).
+  // Otherwise each plays while it is in view. Browsers pause muted autoplay videos on their
+  // own (off screen, or while the window is resized) and don't always resume them: a clip
+  // in view stayed paused after the window was made narrow and wide again. So the page keeps
+  // track of which clips are in view and plays any of them that gets paused.
+  const clips = document.querySelectorAll("video[autoplay]");
   if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    document.querySelectorAll("video[autoplay]").forEach(v => { v.removeAttribute("autoplay"); v.pause(); v.controls = true; });
+    clips.forEach(v => { v.removeAttribute("autoplay"); v.pause(); v.controls = true; });
+  } else if ("IntersectionObserver" in window) {
+    const inView = new Set();
+    const play = v => { if (inView.has(v) && v.paused) v.play().catch(() => {}); };
+    const seen = new IntersectionObserver(entries => entries.forEach(e => {
+      if (e.isIntersecting) { inView.add(e.target); play(e.target); }
+      else { inView.delete(e.target); e.target.pause(); }
+    }));
+    clips.forEach(v => {
+      seen.observe(v);
+      v.addEventListener("pause", () => setTimeout(() => play(v), 250));
+    });
+    let settle;
+    addEventListener("resize", () => { clearTimeout(settle); settle = setTimeout(() => clips.forEach(play), 300); });
   }
 </script>
 </body>
