@@ -280,8 +280,10 @@
           <li>Open <strong>System Settings</strong> and click <strong>Privacy &amp; Security</strong>
             in the list on the left. Scroll down to <em>Security</em> and click <strong>Open Anyway</strong> next to the
             installer's name (it is there for about an hour).
-            <img class="shot" src="assets/macos_2_open_anyway.png" width="814" height="771" loading="lazy"
-              alt="Privacy &amp; Security in System Settings: the installer was blocked, with the Open Anyway button marked"></li>
+            <a class="zoom" href="assets/macos_2_open_anyway.png"><img class="shot" src="assets/macos_2_open_anyway.png"
+              width="814" height="771" loading="lazy"
+              alt="Privacy &amp; Security in System Settings: the installer was blocked, with the Open Anyway button marked"></a>
+            <span class="muted">(Click the picture to enlarge it.)</span></li>
           <li>Click <strong>Open Anyway</strong> again, and confirm with Touch ID or your password.
             The installer starts.
             <img class="shot" src="assets/macos_3_open_anyway.png" width="600" height="853" loading="lazy"
@@ -387,15 +389,16 @@
     }
   }
 
-  // Gallery images open larger in a dialog; a click anywhere or Esc closes it. Without
+  // Gallery images (and the macOS System Settings screenshot) open larger in a dialog; a click anywhere or Esc closes it. Without
   // scripts the links still open the image itself.
   const box = document.querySelector(".lightbox");
   document.querySelectorAll("a.zoom").forEach(a => a.addEventListener("click", e => {
     e.preventDefault();
-    const img = a.querySelector("img"), cap = a.closest("figure").querySelector("figcaption");
+    const img = a.querySelector("img"), fig = a.closest("figure");
+    const cap = fig && fig.querySelector("figcaption");
     box.querySelector("img").src = a.href;
     box.querySelector("img").alt = img.alt;
-    box.querySelector("p").textContent = cap ? cap.textContent : "";
+    box.querySelector("p").textContent = cap ? cap.textContent : fig ? "" : img.alt;
     box.showModal();
   }));
   box.addEventListener("click", () => box.close());
