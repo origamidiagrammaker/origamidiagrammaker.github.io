@@ -270,22 +270,21 @@
           unzip it and move it to Applications before starting it (otherwise it can't update).</p>
         <p class="small">macOS only opens apps it has checked with Apple. ODM isn't checked by
           Apple (that costs a yearly fee), so you allow it once. To install:</p>
-        <!-- Our own drawings of the dialogs (macOS 15; macOS 26 looks slightly different),
-             devtools/brand/make_macos_steps.py in the dev repository; replace with real screenshots when a tester
-             sends them. -->
+        <!-- Screenshots of the real dialogs (macOS 15), found online by the author, with the
+             installer's name put in: devtools/brand/macos_steps/ in the dev repository. -->
         <ol class="steps small">
           <li>Open the installer. macOS says it was <em>"Not Opened"</em>. Click
             <strong>Done</strong> (not <em>Move to Trash</em>).
-            <img class="shot" src="assets/macos_1_done.svg" width="560" height="540" loading="lazy"
+            <img class="shot" src="assets/macos_1_not_opened.png" width="668" height="806" loading="lazy"
               alt="The macOS message &quot;Not Opened&quot; for the installer, with the Done button marked"></li>
-          <li>Open <strong>System Settings</strong>, then <strong>Privacy &amp; Security</strong>.
-            Scroll down to <em>Security</em> and click <strong>Open Anyway</strong> next to the
+          <li>Open <strong>System Settings</strong> and click <strong>Privacy &amp; Security</strong>
+            in the list on the left. Scroll down to <em>Security</em> and click <strong>Open Anyway</strong> next to the
             installer's name (it is there for about an hour).
-            <img class="shot" src="assets/macos_2_open_anyway.svg" width="660" height="420" loading="lazy"
+            <img class="shot" src="assets/macos_2_open_anyway.png" width="814" height="771" loading="lazy"
               alt="Privacy &amp; Security in System Settings: the installer was blocked, with the Open Anyway button marked"></li>
           <li>Click <strong>Open Anyway</strong> again, and confirm with Touch ID or your password.
             The installer starts.
-            <img class="shot" src="assets/macos_3_confirm.svg" width="560" height="600" loading="lazy"
+            <img class="shot" src="assets/macos_3_open_anyway.png" width="600" height="853" loading="lazy"
               alt="The question whether to open the installer, with the Open Anyway button marked"></li>
         </ol>
         <p class="small">The app from the zip asks the same way the first time you start it.</p>
