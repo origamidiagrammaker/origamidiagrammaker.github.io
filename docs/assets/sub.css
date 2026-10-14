@@ -38,3 +38,4 @@ th { color: var(--muted); font-weight: 600; }
 }
 ul.inner { margin: 0 0 12px; padding-left: 5em; }
 @media (max-width: 560px) { ul.inner { padding-left: 1.6em; } }
+.scroll { overflow-x: auto; }                 /* a wide table scrolls by itself on phones */
