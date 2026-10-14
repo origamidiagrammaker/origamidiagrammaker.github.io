@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="660" height="420" viewBox="0 0 660 420" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif">
+<rect width="660" height="420" fill="#d9dadc"/>
+<rect x="20" y="20" width="620" height="380" rx="16" fill="#f2f2f4" stroke="#c4c4c8"/>
+<circle cx="48" cy="48" r="7" fill="#ff5f57"/><circle cx="70" cy="48" r="7" fill="#febc2e"/><circle cx="92" cy="48" r="7" fill="#28c840"/>
+<text x="330.0" y="54.0" font-size="18" font-weight="700" text-anchor="middle" fill="#1d1d1f">Privacy &amp; Security</text>
+<line x1="20" y1="80" x2="640" y2="80" stroke="#d1d1d6"/>
+<text x="48" y="122.0" font-size="17" font-weight="700" text-anchor="start" fill="#1d1d1f">Security</text>
+<rect x="40" y="138" width="580" height="216" rx="12" fill="#ffffff" stroke="#e0e0e4"/>
+<text x="60" y="176.0" font-size="15" font-weight="400" text-anchor="start" fill="#1d1d1f">Allow applications from</text>
+<text x="600" y="176.0" font-size="15" font-weight="400" text-anchor="end" fill="#6e6e73">App Store &amp; Known Developers  ⌃</text>
+<line x1="56" y1="198" x2="604" y2="198" stroke="#e5e5ea"/>
+<text x="60" y="232.0" font-size="15" font-weight="400" text-anchor="start" fill="#1d1d1f">"OrigamiDiagramMaker-osx-arm64-Setup.pkg"</text>
+<text x="60" y="251.5" font-size="15" font-weight="400" text-anchor="start" fill="#1d1d1f">was blocked to protect your Mac.</text>
+<rect x="464" y="218" width="140" height="36" rx="9.0" fill="#e3e3e6"/>
+<text x="534.0" y="241.2" font-size="15" font-weight="500" text-anchor="middle" fill="#1d1d1f">Open Anyway</text>
+<text x="60" y="300.0" font-size="12.5" font-weight="400" text-anchor="start" fill="#6e6e73">Apple could not verify "OrigamiDiagramMaker-osx-arm64-Setup.pkg" is free of</text>
+<text x="60" y="316.2" font-size="12.5" font-weight="400" text-anchor="start" fill="#6e6e73">malware that may harm your Mac or compromise your privacy.</text>
+<rect x="458" y="212" width="152" height="48" rx="15.0" fill="none" stroke="#f39c12" stroke-width="4"/>
+</svg>
