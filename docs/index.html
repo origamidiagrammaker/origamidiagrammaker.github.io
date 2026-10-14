@@ -100,6 +100,19 @@
   .lightbox p { color: #e8e6e1; margin: 0; font-size: .95rem; text-align: center; padding: 0 16px; }
 
   .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .cols3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-bottom: 8px; }
+  @media (max-width: 760px) { .cols3 { grid-template-columns: 1fr; gap: 8px; } }
+  /* the first-run confirmations, folded away */
+  details.install { border: 1px solid var(--line); border-radius: 8px; margin: 0 0 12px; }
+  details.install > summary { cursor: pointer; padding: 10px 16px; font-weight: 600; font-size: .95rem; }
+  details.install > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 8px; }
+  details.install[open] > summary { border-bottom: 1px solid var(--line); }
+  details.install > :not(summary) { margin-left: 16px; margin-right: 16px; }
+  details.install > p:first-of-type { margin-top: 12px; }
+  /* the steps side by side where there is room, each with its screenshot */
+  details.install ol.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                             gap: 8px 24px; padding-left: 1.2em; align-items: start; }
+  details.install ol.steps .shot { max-width: 100%; }
   @media (max-width: 640px) { .cols { grid-template-columns: 1fr; } }
   ul { padding-left: 1.2em; margin: 0 0 14px; }
   li { margin-bottom: 4px; }
@@ -236,10 +249,7 @@
     <p>ODM runs on Windows, macOS and Linux, and keeps itself up to date: it asks before
       installing an update. Every version, with its release notes, is on the
       <a href="https://github.com/origamidiagrammaker/origamidiagrammaker.github.io/releases">releases page</a>.</p>
-    <p class="small">Windows and macOS warn about programs from independent developers that
-      haven't paid for a certificate from Microsoft or Apple. You confirm once, as shown below;
-      updates install without the warning.</p>
-    <div class="cols">
+    <div class="cols3">
       <div>
         <h3>Windows</h3>
         <p class="small">Windows 10 and 11 (64-bit). The
@@ -248,18 +258,8 @@
           for example on a school computer? The
           <a href="https://github.com/origamidiagrammaker/origamidiagrammaker.github.io/releases/latest/download/OrigamiDiagramMaker-win-Portable.zip">portable version</a>
           runs from any folder: unzip it and start the program in it.</p>
-        <p class="small">Windows SmartScreen asks for confirmation before running installers
-          it doesn't recognise yet, as is usual for independent software. To install:</p>
-        <ol class="steps small">
-          <li>Run the installer. Windows shows <em>"Windows protected your PC"</em>. Click
-            <strong>More info</strong>.
-            <img class="shot" src="assets/smartscreen_1_more_info.png" width="663" height="618" loading="lazy"
-              alt="The SmartScreen warning &quot;Windows protected your PC&quot;, with the More info link marked"></li>
-          <li>Click <strong>Run anyway</strong>.
-            <img class="shot" src="assets/smartscreen_2_run_anyway.png" width="660" height="617" loading="lazy"
-              alt="The same warning after More info, showing the installer's name, with the Run anyway button marked"></li>
-        </ol>
-        <p class="small">Download ODM only from the releases page linked above.</p>
+        <p class="small">Windows asks for confirmation the first time:
+          <a href="#install-windows">see how</a>.</p>
       </div>
       <div>
         <h3>macOS</h3>
@@ -268,36 +268,61 @@
           puts ODM in your Applications folder. Or download the
           <a href="https://github.com/origamidiagrammaker/origamidiagrammaker.github.io/releases/latest/download/OrigamiDiagramMaker-osx-arm64-Portable.zip">app as a zip</a>,
           unzip it and move it to Applications before starting it (otherwise it can't update).</p>
-        <p class="small">macOS only opens apps it has checked with Apple. ODM isn't checked by
-          Apple (that costs a yearly fee), so you allow it once. To install:</p>
-        <!-- Screenshots of the real dialogs (macOS 15), found online by the author, with the
-             installer's name put in: devtools/brand/macos_steps/ in the dev repository. -->
-        <ol class="steps small">
-          <li>Open the installer. macOS says it was <em>"Not Opened"</em>. Click
-            <strong>Done</strong> (not <em>Move to Trash</em>).
-            <img class="shot" src="assets/macos_1_not_opened.png" width="668" height="806" loading="lazy"
-              alt="The macOS message &quot;Not Opened&quot; for the installer, with the Done button marked"></li>
-          <li>Open <strong>System Settings</strong> and click <strong>Privacy &amp; Security</strong>
-            in the list on the left. Scroll down to <em>Security</em> and click <strong>Open Anyway</strong> next to the
-            installer's name (it is there for about an hour).
-            <a class="zoom" href="assets/macos_2_open_anyway.png"><img class="shot" src="assets/macos_2_open_anyway.png"
-              width="814" height="771" loading="lazy"
-              alt="Privacy &amp; Security in System Settings: the installer was blocked, with the Open Anyway button marked"></a>
-            <span class="muted">(Click the picture to enlarge it.)</span></li>
-          <li>Click <strong>Open Anyway</strong> again, and confirm with Touch ID or your password.
-            The installer starts.
-            <img class="shot" src="assets/macos_3_open_anyway.png" width="600" height="853" loading="lazy"
-              alt="The question whether to open the installer, with the Open Anyway button marked"></li>
-        </ol>
-        <p class="small">The app from the zip asks the same way the first time you start it.</p>
+        <p class="small">macOS asks you to allow ODM the first time:
+          <a href="#install-macos">see how</a>.</p>
+      </div>
+      <div>
+        <h3>Linux</h3>
+        <p class="small">64-bit (x86-64) Linux from about 2022 on: Ubuntu 22.04, Debian 12, Fedora 36
+          or later. ODM is an
+          <a href="https://github.com/origamidiagrammaker/origamidiagrammaker.github.io/releases/latest/download/OrigamiDiagramMaker-linux-x64.AppImage">AppImage</a>:
+          a single file that runs without installing. Allow it to run as a program (in the file's
+          properties, or <code>chmod +x</code>), then start it.</p>
       </div>
     </div>
-    <h3>Linux</h3>
-    <p class="small">64-bit (x86-64) Linux from about 2022 on: Ubuntu 22.04, Debian 12, Fedora 36 or
-      later. ODM is an
-      <a href="https://github.com/origamidiagrammaker/origamidiagrammaker.github.io/releases/latest/download/OrigamiDiagramMaker-linux-x64.AppImage">AppImage</a>:
-      a single file that runs without installing. Allow it to run as a program (in the file's
-      properties, or <code>chmod +x OrigamiDiagramMaker-linux-x64.AppImage</code>), then start it.</p>
+
+    <!-- The first-run confirmations fold out (closed by default; a link to #install-windows or
+         #install-macos opens one: the script at the end). -->
+    <details class="install" id="install-windows">
+      <summary>Windows: confirming the installer the first time</summary>
+      <p class="small">Windows SmartScreen asks for confirmation before running installers it
+        doesn't recognise yet, as is usual for independent software. Updates install without it.</p>
+      <ol class="steps small">
+        <li>Run the installer. Windows shows <em>"Windows protected your PC"</em>. Click
+          <strong>More info</strong>.
+          <img class="shot" src="assets/smartscreen_1_more_info.png" width="663" height="618" loading="lazy"
+            alt="The SmartScreen warning &quot;Windows protected your PC&quot;, with the More info link marked"></li>
+        <li>Click <strong>Run anyway</strong>.
+          <img class="shot" src="assets/smartscreen_2_run_anyway.png" width="660" height="617" loading="lazy"
+            alt="The same warning after More info, showing the installer's name, with the Run anyway button marked"></li>
+      </ol>
+      <p class="small">Download ODM only from the releases page linked above.</p>
+    </details>
+    <details class="install" id="install-macos">
+      <summary>macOS: allowing ODM the first time</summary>
+      <p class="small">macOS only opens apps it has checked with Apple. ODM isn't checked by
+        Apple (that costs a yearly fee), so you allow it once. Updates install without asking.</p>
+      <!-- Screenshots of the real dialogs (macOS 15), found online by the author, with the
+           installer's name put in: devtools/brand/macos_steps/ in the dev repository. -->
+      <ol class="steps small">
+        <li>Open the installer. macOS says it was <em>"Not Opened"</em>. Click
+          <strong>Done</strong> (not <em>Move to Trash</em>).
+          <img class="shot" src="assets/macos_1_not_opened.png" width="668" height="806" loading="lazy"
+            alt="The macOS message &quot;Not Opened&quot; for the installer, with the Done button marked"></li>
+        <li>Open <strong>System Settings</strong> and click <strong>Privacy &amp; Security</strong>
+          in the list on the left. Scroll down to <em>Security</em> and click <strong>Open Anyway</strong>
+          next to the installer's name (it is there for about an hour).
+          <a class="zoom" href="assets/macos_2_open_anyway.png"><img class="shot" src="assets/macos_2_open_anyway.png"
+            width="814" height="771" loading="lazy"
+            alt="Privacy &amp; Security in System Settings: the installer was blocked, with the Open Anyway button marked"></a>
+          <span class="muted">(Click the picture to enlarge it.)</span></li>
+        <li>Click <strong>Open Anyway</strong> again, and confirm with Touch ID or your password.
+          The installer starts.
+          <img class="shot" src="assets/macos_3_open_anyway.png" width="600" height="853" loading="lazy"
+            alt="The question whether to open the installer, with the Open Anyway button marked"></li>
+      </ol>
+      <p class="small">The app from the zip asks the same way the first time you start it.</p>
+    </details>
     <p class="small">If you allow it, ODM checks GitHub for updates, and it asks before
       installing one. It sends no other data: no usage statistics, no tracking. See
       <a href="privacy.html">privacy</a>.</p>
@@ -388,6 +413,15 @@
       document.querySelectorAll(".buttons .button").forEach(b => b.classList.toggle("other", b !== own));
     }
   }
+
+  // A link to a folded-away part (#install-windows, #install-macos) opens it, also when the
+  // page is opened at that address (e.g. from release notes).
+  const unfold = () => {
+    const d = location.hash.length > 1 && document.getElementById(location.hash.slice(1));
+    if (d && d.tagName === "DETAILS" && !d.open) { d.open = true; d.scrollIntoView(); }
+  };
+  addEventListener("hashchange", unfold);
+  unfold();
 
   // Gallery images (and the macOS System Settings screenshot) open larger in a dialog; a click anywhere or Esc closes it. Without
   // scripts the links still open the image itself.
